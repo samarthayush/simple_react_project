@@ -38,7 +38,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v2
       with:
-        name: ./build  # Download the build artifact from the 'build' job
+        name: build  # Corrected artifact name
 
     # Add a step to list the contents of the downloaded artifact for debugging
     - name: List Artifact Contents
