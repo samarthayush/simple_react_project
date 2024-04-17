@@ -24,7 +24,7 @@ jobs:
     - name: Build
       run: npm run build  # Build the React app
 
-    - name: Upload artifact
+    - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
         name: build  # Name of the artifact to be uploaded
@@ -40,13 +40,12 @@ jobs:
       with:
         name: build  # Corrected artifact name
 
-    # Add a step to list the contents of the downloaded artifact for debugging
     - name: List Artifact Contents
       run: ls -R
 
     - name: Deploy to Azure App Service
-      uses: azure/webapps-deploy@v3 # Use the Azure Web Apps Deploy action
+      uses: azure/webapps-deploy@v3
       with:
         app-name: 'NodejsApp2024'  # Replace 'your-app-name' with your Azure App Service name
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Store your Azure App Service publish profile as a secret and reference it here
-        package: ./build  # Use '.' to deploy all files from the current directory
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ github.workspace }}/build  # Corrected path to the build directory
