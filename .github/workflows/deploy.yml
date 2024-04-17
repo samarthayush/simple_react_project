@@ -41,7 +41,7 @@ jobs:
         name: build  # Corrected artifact name
 
     - name: List Artifact Contents
-      run: ls -R
+      run: ls -R ${{ github.workspace }}/build
 
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v3
