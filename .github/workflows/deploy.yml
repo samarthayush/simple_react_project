@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install Node.js and dependencies
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '14'
 
@@ -30,14 +30,14 @@ jobs:
 
     steps:
     - name: Download artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: build  # Download the build artifact from the 'build' job
-        path: ./build
+        
 
     - name: Deploy to Azure App Service
-      uses: azure/webapps-deploy@v2  # Use the Azure Web Apps Deploy action
+      uses: azure/webapps-deploy@v3 # Use the Azure Web Apps Deploy action
       with:
         app-name: 'NodejsApp2024'  # Replace 'your-app-name' with your Azure App Service name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Store your Azure App Service publish profile as a secret and reference it here
-        package: ./build
+        package: build
