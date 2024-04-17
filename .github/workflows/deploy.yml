@@ -40,9 +40,13 @@ jobs:
       with:
         name: build  # Download the build artifact from the 'build' job
 
+    # Add a step to list the contents of the downloaded artifact for debugging
+    - name: List Artifact Contents
+      run: ls -R
+
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v3 # Use the Azure Web Apps Deploy action
       with:
         app-name: 'NodejsApp2024'  # Replace 'your-app-name' with your Azure App Service name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Store your Azure App Service publish profile as a secret and reference it here
-        package: build
+        package: .  # Use '.' to deploy all files from the current directory
