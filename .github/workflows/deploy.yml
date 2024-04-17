@@ -24,16 +24,21 @@ jobs:
     - name: Build
       run: npm run build  # Build the React app
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: build  # Name of the artifact to be uploaded
+        path: build  # Path to the directory containing the build artifacts
+
   deploy:
     runs-on: ubuntu-latest
     needs: build  # Make sure the 'build' job is completed before starting the 'deploy' job
 
     steps:
     - name: Download artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v2
       with:
         name: build  # Download the build artifact from the 'build' job
-        
 
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v3 # Use the Azure Web Apps Deploy action
